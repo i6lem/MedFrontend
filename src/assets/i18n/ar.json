@@ -37,6 +37,20 @@
       "Gender": " الجنس",
       "Male": "ذكر",
       "Femal": "أنثى"
+    },
+    
+    "Patients": {
+      "Patients" : "المرضى",
+      "Patient" : "المريض",
+      "FirstName": "الإسم",
+      "LastName":  " اللقب ",
+      "PhoneNumber": "رقم الهاتف",
+      "Email": "البريد الإلكتروني",
+      "Roles": " وظائف ",
+      "Active": " فعل",
+      "Gender": " الجنس",
+      "Male": "ذكر",
+      "Femal": "أنثى"
     }
     ,
     "DASHBOARD": {

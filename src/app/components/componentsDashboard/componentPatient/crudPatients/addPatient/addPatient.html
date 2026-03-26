@@ -14,7 +14,7 @@
 </div>
 
 <div class="row">
-    <form  action="javascript:void(0);"  [formGroup]="userForm"  >
+    <form  action="javascript:void(0);"  [formGroup]="patientForm"  >
     <div class="col-lg-12">
         <div class="card">
             <div class="align-items-center d-flex card-header">
@@ -37,9 +37,9 @@
                             <div>
                                 <label class="form-label form-label" for="basiInput">{{ 'MENUITEMS.USERS.FirstName' | translate }}</label> 
                                 <input  id="FirstName" class="form-control form-control" type="text" name="FirstName" placeholder="{{ 'HEADER.EnterFirstNamePlaceholder.TEXT' | translate }}" formControlName="FirstName"> 
-                                    <div *ngIf="userForm.controls['FirstName'].invalid && userForm.controls['FirstName'].touched">
-                                        <div *ngIf="userForm.controls['FirstName'].errors?.['required']"  style="color:red">FirstName is required.</div>
-                                        <div *ngIf="userForm.controls['FirstName'].errors?.['minlength']" style="color:red" >FirstName must be at least 3 characters long.</div>
+                                    <div *ngIf="patientForm.controls['FirstName'].invalid && patientForm.controls['FirstName'].touched">
+                                        <div *ngIf="patientForm.controls['FirstName'].errors?.['required']"  style="color:red">FirstName is required.</div>
+                                        <div *ngIf="patientForm.controls['FirstName'].errors?.['minlength']" style="color:red" >FirstName must be at least 3 characters long.</div>
                                     </div>
                             </div>
                         </div>
@@ -47,9 +47,9 @@
                             <div>
                                 <label class="form-label form-label" for="basiInput">{{ 'MENUITEMS.USERS.LastName' | translate }}</label> 
                                 <input  id="LastName" class="form-control form-control" type="text" name="LastName" placeholder="LastName" formControlName="LastName"> 
-                                    <div *ngIf="userForm.controls['LastName'].invalid && userForm.controls['LastName'].touched">
-                                        <div *ngIf="userForm.controls['LastName'].errors?.['required']"  style="color:red">LastName is required.</div>
-                                        <div *ngIf="userForm.controls['LastName'].errors?.['minlength']" style="color:red" >LastName must be at least 3 characters long.</div>
+                                    <div *ngIf="patientForm.controls['LastName'].invalid && patientForm.controls['LastName'].touched">
+                                        <div *ngIf="patientForm.controls['LastName'].errors?.['required']"  style="color:red">LastName is required.</div>
+                                        <div *ngIf="patientForm.controls['LastName'].errors?.['minlength']" style="color:red" >LastName must be at least 3 characters long.</div>
                                     </div>
                             </div>
                         </div>
@@ -60,9 +60,9 @@
                             <div>
                                 <label class="form-label form-label" for="basiInput">{{ 'MENUITEMS.USERS.Email' | translate }}</label> 
                                 <input  id="Email" class="form-control form-control" type="text" name="Email" placeholder="Email" formControlName="Email"> 
-                                    <div *ngIf="userForm.controls['Email'].invalid && userForm.controls['Email'].touched">
-                                        <div *ngIf="userForm.controls['Email'].errors?.['required']"  style="color:red" >Email is required.</div>
-                                        <div *ngIf="userForm.controls['Email'].errors?.['email']" style="color:red" >Email must be at least 3 characters long.</div>
+                                    <div *ngIf="patientForm.controls['Email'].invalid && patientForm.controls['Email'].touched">
+                                        <div *ngIf="patientForm.controls['Email'].errors?.['required']"  style="color:red" >Email is required.</div>
+                                        <div *ngIf="patientForm.controls['Email'].errors?.['email']" style="color:red" >Email must be at least 3 characters long.</div>
                                     </div> 
                             </div>
                         </div>

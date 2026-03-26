@@ -24,11 +24,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AddPatient } from './addPatient/addPatient';
+import { ViewPatientExtern } from './viewPatient/viewPatient';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { createTranslateLoader } from 'src/app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { LanguageService } from 'src/app/core/services/language.service';
+import { ViewreclamationsExtern } from '../../commonComponentsDash/reclamations/viewreclamations/viewreclamations';
 
 
 
@@ -49,13 +51,21 @@ import { LanguageService } from 'src/app/core/services/language.service';
                       data: {
                           title: 'Add patient'
                       }
-                  }
+                  },
+              {  
+                    path: 'view/:id',
+                    component: ViewPatientExtern,
+                    data: {
+                    title: 'View patient'
+                    }
+                }
                 ]}
 ]
 
 @NgModule({
   declarations: [
-    AddPatient
+    AddPatient,
+    ViewPatientExtern
   ],
   imports: [
     CommonModule,

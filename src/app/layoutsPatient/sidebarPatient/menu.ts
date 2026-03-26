@@ -1446,29 +1446,7 @@ export const MENU: MenuItem[] = [
             label: 'MENUITEMS.MULTILEVEL.LIST.LEVEL1.LEVEL2.2',
             parentId: 181,
           }
-          ,
-          
-  {
-    id: 184,
-    label: 'MENUITEMS.Doctors.Doctors',
-    icon: 'ri-dashboard-2-line',
-    isCollapsed: true,
-    subItems: [
-      {
-        id: 185,
-        label: 'MENUITEMS.DASHBOARD.LIST.ADD',
-        link: 'doctors/add',
-        parentId: 184
-      },
-      {
-        id: 186,
-        label: 'MENUITEMS.DASHBOARD.LIST.VIEW',
-        link: 'doctors/view',
-        parentId: 184
-      }
-    ]
-  } 
-        ]
+       ]
       },
     ]
   }

@@ -17,7 +17,7 @@ export class AddPatient {
   Countries: any;
   States: any;
   Roles: any;
-  userForm!: UntypedFormGroup;
+  patientForm!: UntypedFormGroup;
 
   // -------------
   photoName            : string = "NoImage.jpg";
@@ -71,7 +71,7 @@ export class AddPatient {
 
 
   ngOnInit(): void {
-    this.userForm = this.formBuilder.group({
+    this.patientForm = this.formBuilder.group({
 
  
       FirstName: ['Sami', [Validators.required, Validators.minLength(3)]],

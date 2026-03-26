@@ -26,6 +26,19 @@
       "Male": "Male",
       "Femal": "Femal"
     },
+    "Patients": {
+      "Patients" : "Patients",
+      "Patient" : "Patient",
+      "FirstName": "FirstName",
+      "LastName":  "LastName",
+      "PhoneNumber": "PhoneNumber",
+      "Email": "Email",
+      "Roles": "Roles",
+      "Active": "Active",
+      "Gender": "Gender",
+      "Male": "Male",
+      "Femal": "Femal"
+    },
     "USERS": {
       "Users" : "users",
       "User" : "User",
