@@ -13,19 +13,59 @@
       "View": " View "
       
     },
-    "Doctors": {
-      "Doctors" : "Doctors",
-      "Doctor" : "Doctor",
-      "FirstName": "FirstName",
-      "LastName":  "LastName",
-      "PhoneNumber": "PhoneNumber",
-      "Email": "Email",
-      "Roles": "Roles",
-      "Active": "Active",
-      "Gender": "Gender",
-      "Male": "Male",
-      "Femal": "Femal"
-    },
+    "DASHBOARD": {
+    "Dashboard": "Dashboard",
+    "Overview": "Overview",
+    "Stats": "Statistics",
+    "Notifications": "Notifications"
+  },
+  "APPOINTMENTS": {
+    "Appointments": "Appointments",
+    "Upcoming": "Upcoming Appointments",
+    "Past": "Past Appointments",
+    "CalendarView": "Calendar View",
+    "SelectDoctor": "Select Doctor",
+    "Book": "Book",
+    "Cancel": "Cancel"
+  },
+  "DOCTORS": {
+    "Doctors": "Doctors",
+    "Doctor": "Doctor",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "PhoneNumber": "Phone Number",
+    "Email": "Email",
+    "Roles": "Roles",
+    "Active": "Active",
+    "Gender": "Gender",
+    "Male": "Male",
+    "Female": "Female"
+  },
+  "MEDICAL_RECORDS": {
+    "MedicalRecords": "Medical Records",
+    "Documents": "Documents",
+    "LabResults": "Lab Results",
+    "Prescriptions": "Prescriptions",
+    "ConsultationReports": "Consultation Reports",
+    "FullHistory": "Full History",
+    "Upload": "Upload",
+    "Cancel": "Cancel"
+  },
+  "TREATMENTS_FOLLOWUP": {
+    "TreatmentsFollowUp": "Treatments & Follow-up",
+    "CurrentMedications": "Current Medications",
+    "TreatmentsTherapies": "Treatments / Therapies",
+    "SupplementsNutrition": "Supplements / Nutrition",
+    "Update": "Update",
+    "Cancel": "Cancel"
+  },
+  "BILLING": {
+    "Billing": "Billing",
+    "Invoices": "Invoices",
+    "Payments": "Payments",
+    "Pay": "Pay",
+    "Cancel": "Cancel"
+  },
     "Patients": {
       "Patients" : "Patients",
       "Patient" : "Patient",
@@ -50,19 +90,6 @@
       "Gender": "Gender",
       "Male": "Male",
       "Femal": "Femal"
-    },
-    "DASHBOARD": {
-      "TEXT": "Dashboards",
-      "BADGE": "New",
-      "LIST": {
-        "ANALYTICS": "Analytics",
-        "CRM": "CRM",
-        "ECOMMERCE": "Ecommerce",
-        "CRYPTO": "Crypto",
-        "PROJECTS": "Projects",
-        "NFT": "NFT",
-        "JOB": "Job"
-      }
     },
     "APPS": {
       "TEXT": "Apps",

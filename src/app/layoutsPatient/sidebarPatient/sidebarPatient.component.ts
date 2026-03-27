@@ -1,21 +1,22 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-sidebar-patient',
-    templateUrl: './sidebarPatient.component.html',
-    standalone: false
+  selector: 'app-sidebar-patient',
+  templateUrl: './sidebarPatient.component.html',
+  standalone: false
 })
 export class SidebarPatientComponent implements OnInit {
 
   menu: any;
   toggle: any = true;
   menuItems: MenuItem[] = [];
+  activeDropdownPos = { top: 0, left: 0 };
+
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
@@ -24,10 +25,9 @@ export class SidebarPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Menu Items
     this.menuItems = MENU;
     this.router.events.subscribe((event) => {
-      if (document.documentElement.getAttribute('data-layout') != "twocolumn") {
+      if (document.documentElement.getAttribute('data-layout') != 'twocolumn') {
         if (event instanceof NavigationEnd) {
           this.initActiveMenu();
         }
@@ -35,80 +35,52 @@ export class SidebarPatientComponent implements OnInit {
     });
   }
 
-  /***
-   * Activate droup down set
-   */
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.initActiveMenu();
-    }, 0);
+    setTimeout(() => this.initActiveMenu(), 0);
+  }
+
+  // Ferme dropdown si click en dehors
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.nav-item.dropdown')) {
+      this.menuItems.forEach((item: any) => item.isCollapsed = true);
+    }
+  }
+
+  toggleItem(item: any, event?: MouseEvent) {
+    const wasCollapsed = item.isCollapsed;
+
+    // Ferme tout
+    this.menuItems.forEach((menuItem: any) => menuItem.isCollapsed = true);
+
+    // Calcule position du dropdown selon l'élément cliqué
+    if (!wasCollapsed) return;
+
+    if (event) {
+      const el = (event.currentTarget as HTMLElement);
+      const rect = el.getBoundingClientRect();
+      this.activeDropdownPos = {
+        top: rect.bottom + 6,
+        left: rect.left
+      };
+    }
+
+    item.isCollapsed = false;
   }
 
   removeActivation(items: any) {
-    items.forEach((item: any) => {
-      item.classList.remove("active");
-    });
-  }
-
-  toggleItem(item: any) {
-    this.menuItems.forEach((menuItem: any) => {
-
-      if (menuItem == item) {
-        menuItem.isCollapsed = !menuItem.isCollapsed
-      } else {
-        menuItem.isCollapsed = true
-      }
-      if (menuItem.subItems) {
-        menuItem.subItems.forEach((subItem: any) => {
-
-          if (subItem == item) {
-            menuItem.isCollapsed = !menuItem.isCollapsed
-            subItem.isCollapsed = !subItem.isCollapsed
-          } else {
-            subItem.isCollapsed = true
-          }
-          if (subItem.subItems) {
-            subItem.subItems.forEach((childitem: any) => {
-
-              if (childitem == item) {
-                childitem.isCollapsed = !childitem.isCollapsed
-                subItem.isCollapsed = !subItem.isCollapsed
-                menuItem.isCollapsed = !menuItem.isCollapsed
-              } else {
-                childitem.isCollapsed = true
-              }
-              if (childitem.subItems) {
-                childitem.subItems.forEach((childrenitem: any) => {
-
-                  if (childrenitem == item) {
-                    childrenitem.isCollapsed = false
-                    childitem.isCollapsed = false
-                    subItem.isCollapsed = false
-                    menuItem.isCollapsed = false
-                  } else {
-                    childrenitem.isCollapsed = true
-                  }
-                })
-              }
-            })
-          }
-        })
-      }
-    });
+    items.forEach((item: any) => item.classList.remove('active'));
   }
 
   activateParentDropdown(item: any) {
-    item.classList.add("active");
-    let parentCollapseDiv = item.closest(".collapse.menu-dropdown");
-
+    item.classList.add('active');
+    let parentCollapseDiv = item.closest('.collapse.menu-dropdown');
     if (parentCollapseDiv) {
-      parentCollapseDiv.parentElement.children[0].classList.add("active");
-      if (parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
-        if (parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling)
-          parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
-        if (parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.closest(".collapse")) {
-          parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.closest(".collapse").previousElementSibling.classList.add("active");
-        }
+      parentCollapseDiv.parentElement.children[0].classList.add('active');
+      if (parentCollapseDiv.parentElement.closest('.collapse.menu-dropdown')) {
+        if (parentCollapseDiv.parentElement.closest('.collapse').previousElementSibling)
+          parentCollapseDiv.parentElement.closest('.collapse').previousElementSibling.classList.add('active');
       }
       return false;
     }
@@ -116,88 +88,64 @@ export class SidebarPatientComponent implements OnInit {
   }
 
   updateActive(event: any) {
-    const ul = document.getElementById("navbar-nav");
+    const ul = document.getElementById('navbar-nav');
     if (ul) {
-      const items = Array.from(ul.querySelectorAll("a.nav-link"));
+      const items = Array.from(ul.querySelectorAll('a.nav-link'));
       this.removeActivation(items);
     }
     this.activateParentDropdown(event.target);
+    this.menuItems.forEach((item: any) => item.isCollapsed = true);
   }
 
   initActiveMenu() {
     let pathName = window.location.pathname;
-    // Check if the application is running in production
     if (environment.production) {
-      // Modify pathName for production build
       pathName = pathName.replace('/velzon/angular/default', '');
     }
+    const active = this.findMenuItem(pathName, this.menuItems);
+    if (active) this.toggleItem(active);
 
-    const active = this.findMenuItem(pathName, this.menuItems)
-    this.toggleItem(active)
-    const ul = document.getElementById("navbar-nav");
+    const ul = document.getElementById('navbar-nav');
     if (ul) {
-      const items = Array.from(ul.querySelectorAll("a.nav-link"));
-      let activeItems = items.filter((x: any) => x.classList.contains("active"));
+      const items = Array.from(ul.querySelectorAll('a.nav-link'));
+      let activeItems = items.filter((x: any) => x.classList.contains('active'));
       this.removeActivation(activeItems);
-
       let matchingMenuItem = items.find((x: any) => {
         if (environment.production) {
-          let path = x.pathname
-          path = path.replace('/velzon/angular/default', '');
+          let path = x.pathname.replace('/velzon/angular/default', '');
           return path === pathName;
-        } else {
-          return x.pathname === pathName;
         }
-
+        return x.pathname === pathName;
       });
-      if (matchingMenuItem) {
-        this.activateParentDropdown(matchingMenuItem);
-      }
+      if (matchingMenuItem) this.activateParentDropdown(matchingMenuItem);
     }
   }
 
   private findMenuItem(pathname: string, menuItems: any[]): any {
     for (const menuItem of menuItems) {
-      if (menuItem.link && menuItem.link === pathname) {
-        return menuItem;
-      }
-
+      if (menuItem.link && menuItem.link === pathname) return menuItem;
       if (menuItem.subItems) {
-        const foundItem = this.findMenuItem(pathname, menuItem.subItems);
-        if (foundItem) {
-          return foundItem;
-        }
+        const found = this.findMenuItem(pathname, menuItem.subItems);
+        if (found) return found;
       }
     }
-
     return null;
   }
-  /**
-   * Returns true or false if given menu item has child or not
-   * @param item menuItem
-   */
+
   hasItems(item: MenuItem) {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
 
-  /**
-   * Toggle the menu bar when having mobile screen
-   */
   toggleMobileMenu(event: any) {
-    var sidebarsize = document.documentElement.getAttribute("data-sidebar-size");
-    if (sidebarsize == 'sm-hover-active') {
-      document.documentElement.setAttribute("data-sidebar-size", 'sm-hover');
-
-    } else {
-      document.documentElement.setAttribute("data-sidebar-size", 'sm-hover-active')
-    }
+    const sidebarsize = document.documentElement.getAttribute('data-sidebar-size');
+    document.documentElement.setAttribute('data-sidebar-size',
+      sidebarsize === 'sm-hover-active' ? 'sm-hover' : 'sm-hover-active');
   }
 
-  /**
-   * SidebarHide modal
-   * @param content modal content
-   */
   SidebarHide() {
     document.body.classList.remove('vertical-sidebar-enable');
+  }
+  isActiveLink(link: string): boolean {
+    return window.location.pathname === link;
   }
 }

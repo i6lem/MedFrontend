@@ -38,7 +38,40 @@
       "Male": "ذكر",
       "Femal": "أنثى"
     },
-    
+    "APPOINTMENTS": {
+    "Appointments": "المواعيد",
+    "Upcoming": "المواعيد القادمة",
+    "Past": "المواعيد السابقة",
+    "CalendarView": "عرض التقويم",
+    "SelectDoctor": "اختيار الطبيب",
+    "Book": "حجز",
+    "Cancel": "إلغاء"
+  },
+  "MEDICAL_RECORDS": {
+    "MedicalRecords": "السجلات الطبية",
+    "Documents": "المستندات",
+    "LabResults": "نتائج المختبر",
+    "Prescriptions": "الوصفات الطبية",
+    "ConsultationReports": "تقارير الاستشارة",
+    "FullHistory": "السجل الكامل",
+    "Upload": "رفع",
+    "Cancel": "إلغاء"
+  },
+  "TREATMENTS_FOLLOWUP": {
+    "TreatmentsFollowUp": "العلاجات والمتابعة",
+    "CurrentMedications": "الأدوية الحالية",
+    "TreatmentsTherapies": "العلاجات / الجلسات",
+    "SupplementsNutrition": "المكملات / التغذية",
+    "Update": "تحديث",
+    "Cancel": "إلغاء"
+  },
+  "BILLING": {
+    "Billing": "الفواتير",
+    "Invoices": "الفواتير",
+    "Payments": "المدفوعات",
+    "Pay": "دفع",
+    "Cancel": "إلغاء"
+  },
     "Patients": {
       "Patients" : "المرضى",
       "Patient" : "المريض",
@@ -52,19 +85,11 @@
       "Male": "ذكر",
       "Femal": "أنثى"
     }
-    ,
-    "DASHBOARD": {
-      "TEXT": "لوحات القيادة",
-      "BADGE": "جديد",
-      "LIST": {
-        "ANALYTICS": "تحليلات",
-        "CRM": "CRM",
-        "ECOMMERCE": "التجارة الإلكترونية",
-        "CRYPTO": "تشفير",
-        "PROJECTS": "المشاريع",
-        "NFT": "NFT",
-        "JOB": "مهنة"
-      }
+    ,"DASHBOARD": {
+      "Dashboard": "لوحة التحكم",
+      "Overview": "نظرة عامة",
+      "Stats": "الإحصائيات",
+      "Notifications": "الإشعارات"
     },
     "APPS": {
       "TEXT": "تطبيقات",

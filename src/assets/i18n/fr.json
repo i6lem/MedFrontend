@@ -12,20 +12,59 @@
       "Edit": " Edite ",
       "View": " Affichage"
      
-    },
-    "Doctors": {
-      "Doctors" : "médecins",
-      "Doctor" : "médecin",
-      "FirstName": "prenom",
-      "LastName":  "Nom",
-      "PhoneNumber": "Numéro de téléphone",
-      "Email": "Email",
-      "Roles": "Roles",
-      "Active": "Active",
-      "Gender": "genre",
-      "Male": "Male",
-      "Femal": "Fumelle"
-    },
+    },"DASHBOARD": {
+    "Dashboard": "Tableau de bord",
+    "Overview": "Aperçu",
+    "Stats": "Statistiques",
+    "Notifications": "Notifications"
+  },
+  "APPOINTMENTS": {
+    "Appointments": "Rendez-vous",
+    "Upcoming": "Rendez-vous à venir",
+    "Past": "Rendez-vous passés",
+    "CalendarView": "Vue du calendrier",
+    "SelectDoctor": "Choisir un médecin",
+    "Book": "Réserver",
+    "Cancel": "Annuler"
+  },
+  "DOCTORS": {
+    "Doctors": "Médecins",
+    "Doctor": "Médecin",
+    "FirstName": "Prénom",
+    "LastName": "Nom",
+    "PhoneNumber": "Numéro de téléphone",
+    "Email": "Email",
+    "Roles": "Rôles",
+    "Active": "Actif",
+    "Gender": "Sexe",
+    "Male": "Homme",
+    "Female": "Femme"
+  },
+  "MEDICAL_RECORDS": {
+    "MedicalRecords": "Dossiers médicaux",
+    "Documents": "Documents",
+    "LabResults": "Résultats de laboratoire",
+    "Prescriptions": "Ordonnances",
+    "ConsultationReports": "Rapports de consultation",
+    "FullHistory": "Historique complet",
+    "Upload": "Téléverser",
+    "Cancel": "Annuler"
+  },
+  "TREATMENTS_FOLLOWUP": {
+    "TreatmentsFollowUp": "Traitements & Suivi",
+    "CurrentMedications": "Médicaments actuels",
+    "TreatmentsTherapies": "Traitements / Thérapies",
+    "SupplementsNutrition": "Compléments / Nutrition",
+    "Update": "Mettre à jour",
+    "Cancel": "Annuler"
+  },
+  "BILLING": {
+    "Billing": "Facturation",
+    "Invoices": "Factures",
+    "Payments": "Paiements",
+    "Pay": "Payer",
+    "Cancel": "Annuler"
+  },
     "Patients": {
       "Patients" : "patients",
       "Patient" : "patient",
@@ -50,19 +89,6 @@
       "Gender": "genre",
       "Male": "Male",
       "Femal": "Fumelle"
-    },
-    "DASHBOARD": {
-      "TEXT": "Tableaux de bord",
-      "BADGE": "Nouvelle",
-      "LIST": {
-        "ANALYTICS": "Analytique",
-        "CRM": "GRC",
-        "ECOMMERCE": "Commerce électronique",
-        "CRYPTO": "Crypto",
-        "PROJECTS": "Projets",
-        "NFT": "NFT",
-        "JOB": "TRAVAIL"
-      }
     },
     "APPS": {
       "TEXT": "applications",
