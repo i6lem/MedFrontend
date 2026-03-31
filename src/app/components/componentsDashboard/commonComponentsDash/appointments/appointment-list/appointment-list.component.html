@@ -1,50 +1,86 @@
-<div class="appointment-list-container">
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h4 class="card-title mb-0">My Appointments</h4>
 
-  <div class="list-header">
-    <h2>My Appointments</h2>
+    <!-- Filtre de statut -->
+    <div class="btn-group">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selectedStatus | titlecase }} <span class="ms-2">▼</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" (click)="selectedStatus = 'scheduled'">Scheduled</a></li>
+        <li><a class="dropdown-item" (click)="selectedStatus = 'completed'">Completed</a></li>
+        <li><a class="dropdown-item" (click)="selectedStatus = 'cancelled'">Cancelled</a></li>
+        <li><a class="dropdown-item" (click)="selectedStatus = 'confirmed'">Confirmed</a></li>
+      </ul>
+    </div>
+
+    <!-- Filtre de date -->
+    <div class="btn-group ms-2">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selectedDate | titlecase }} <span class="ms-2">▼</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" (click)="selectedDate = 'today'">Today</a></li>
+        <li><a class="dropdown-item" (click)="selectedDate = 'all'">All dates</a></li>
+      </ul>
+    </div>
+
+    <!-- Bouton Export -->
+    <button class="btn btn-outline-secondary ms-2">
+      <i class="bi bi-download"></i> Export
+    </button>
   </div>
 
-  <div *ngIf="appointments.length === 0" class="empty-state">
-    <p>No appointments found.</p>
+  <div class="card-body">
+    <!-- Si aucun rendez-vous -->
+    <div *ngIf="appointments.length === 0" class="empty-state text-center text-muted">
+      <p>No appointments found.</p>
+    </div>
+
+    <ng-container *ngIf="appointments.length > 0">
+      <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
+        <thead class="text-muted table-light">
+          <tr>
+            <th scope="col">Doctor</th>
+            <th scope="col">Specialty</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Location</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appt of appointments | filterStatus:selectedStatus | filterDate:selectedDate">
+            <td>{{ appt.doctorName }}</td>
+            <td>{{ appt.specialty }}</td>
+            <td>{{ appt.date | date:'mediumDate' }}</td>
+            <td>{{ appt.time }}</td>
+            <td>{{ appt.location }}</td>
+            <td>
+              <span 
+                [ngClass]="{
+                  'badge bg-success-subtle text-success': appt.status === 'confirmed',
+                  'badge bg-warning-subtle text-warning': appt.status === 'scheduled',
+                  'badge bg-danger-subtle text-danger': appt.status === 'cancelled'
+                }" 
+                class="status-badge">
+                {{ appt.status | titlecase }}
+              </span>
+            </td>
+            <td>
+              <button
+                *ngIf="appt.status === 'scheduled'"
+                (click)="cancel(appt.id)"
+                class="btn btn-danger btn-sm">
+                Cancel
+              </button>
+              <span *ngIf="appt.status !== 'scheduled'">—</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
   </div>
-
-  <ng-container *ngIf="appointments.length > 0">
-    <table class="appointments-table">
-      <thead>
-        <tr>
-          <th>Doctor</th>
-          <th>Specialty</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Location</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let appt of appointments">
-          <td>{{ appt.doctorName }}</td>
-          <td>{{ appt.specialty }}</td>
-          <td>{{ appt.date | date:'mediumDate' }}</td>
-          <td>{{ appt.time }}</td>
-          <td>{{ appt.location }}</td>
-          <td>
-            <span [ngClass]="getStatusClass(appt.status)" class="status-badge">
-              {{ appt.status | titlecase }}
-            </span>
-          </td>
-          <td>
-            <button
-              *ngIf="appt.status === 'scheduled'"
-              (click)="cancel(appt.id)"
-              class="btn-cancel">
-              Cancel
-            </button>
-            <span *ngIf="appt.status !== 'scheduled'">—</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </ng-container>
-
 </div>

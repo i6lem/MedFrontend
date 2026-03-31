@@ -4,6 +4,6 @@ export interface Appointment {
   specialty: string;
   date: Date;
   time: string;
-  status: 'scheduled' | 'completed' | 'cancelled';
+  status: 'scheduled' | 'completed' | 'cancelled' | 'confirmed';
   location?: string;
 }
