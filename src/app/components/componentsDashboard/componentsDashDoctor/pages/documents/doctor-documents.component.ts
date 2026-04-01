@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './doctor-documents.component.html',
   standalone: false,
 })
-export class DoctorDocumentsComponent {}
+export class DoctorDocumentsComponent {
+  documents = [
+    { name: 'Blood-test-JohnSmith.pdf', type: 'Lab result', updatedAt: '2026-03-29' },
+    { name: 'MRI-MariaGarcia.pdf', type: 'Imaging', updatedAt: '2026-03-21' },
+  ];
+}

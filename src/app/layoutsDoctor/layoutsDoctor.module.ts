@@ -15,6 +15,7 @@ import { LayoutDoctorComponent } from './layoutsDoctor.component';
 import { VerticalDoctorComponent } from './verticalDoctor/verticalDoctor.component';
 import { SidebarDoctorComponent } from './sidebarDoctor/sidebarDoctor.component';
 import { FooterDoctorComponent } from './footerDoctor/footerDoctor.component';
+import { TopbarDoctorComponent } from './topbarDoctor/topbar-doctor.component';
 import { TwoColumnDoctorComponent } from './two-columnDoctor/two-columnDoctor.component';
 import { TwoColumnSidebarDoctorComponent } from './two-column-sidebarDoctor/two-column-sidebarDoctor.component';
 // import { CdkAriaLive } from "../../../node_modules/@angular/cdk/a11y/index";
@@ -29,6 +30,7 @@ import { A11yModule } from "@angular/cdk/a11y";
     FooterDoctorComponent,
     TwoColumnDoctorComponent,
     TwoColumnSidebarDoctorComponent,
+    TopbarDoctorComponent
   ],
   imports: [
     LayoutsPatientModule,

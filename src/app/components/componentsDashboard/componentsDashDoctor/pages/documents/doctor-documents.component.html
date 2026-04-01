@@ -1,1 +1,29 @@
-<div class="container-fluid py-4"></div>
+<app-dashboard-shell
+  [title]="'Documents'"
+  [subtitle]="'Store and review medical files securely.'"
+  [secondaryMetrics]="[
+    { label: 'Files this month', value: '47' },
+    { label: 'Pending signatures', value: '6' },
+    { label: 'Shared docs', value: '18' },
+    { label: 'Storage used', value: '3.2 GB' }
+  ]"
+>
+  <div shell-actions>
+    <button class="btn btn-soft-primary">Upload document</button>
+  </div>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body table-responsive">
+      <table class="table align-middle mb-0">
+        <thead><tr><th>Name</th><th>Type</th><th>Updated</th><th></th></tr></thead>
+        <tbody>
+          <tr *ngFor="let d of documents">
+            <td>{{ d.name }}</td>
+            <td>{{ d.type }}</td>
+            <td>{{ d.updatedAt }}</td>
+            <td class="text-end"><button class="btn btn-sm btn-soft-primary">Open</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-dashboard-shell>

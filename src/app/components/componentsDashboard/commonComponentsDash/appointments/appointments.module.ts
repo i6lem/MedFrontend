@@ -33,7 +33,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AppointmentListComponent,
     NextAppointmentComponent,
     AddAppointmentComponent,
     UpdateAppointmentComponent,
@@ -43,7 +42,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes)  ,
-    ReactiveFormsModule   
+    ReactiveFormsModule,
+    AppointmentListComponent, 
+
   ],
   providers: [AppointmentsService],
   exports: [

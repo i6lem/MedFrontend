@@ -5,13 +5,14 @@ import { Appointment } from '../appointment.model';
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointment-list.component.html',
-  standalone: false
+  styleUrls: ['./appointment-list.component.scss']
 })
 export class AppointmentListComponent implements OnInit {
 
   appointments: Appointment[] = [];
-  selectedStatus: string = 'all'; // Par défaut, tous les statuts
-  selectedDate: string = 'all'; // Par défaut, toutes les dates
+  selectedStatus: string = 'all';
+  startDate: string = '';
+  endDate: string = '';
 
   constructor(private service: AppointmentsService) {}
 
@@ -23,21 +24,53 @@ export class AppointmentListComponent implements OnInit {
     this.service.getAll().subscribe(data => this.appointments = data);
   }
 
+  onStatusChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedStatus = select.value;
+  }
+
+  onStartDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.startDate = input.value;
+  }
+
+  onEndDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.endDate = input.value;
+  }
+
   cancel(id: number): void {
     this.service.cancel(id);
-    this.loadAppointments(); // Rafraîchir la liste après l'annulation
+    this.loadAppointments();
+  }
+  
+
+  confirm(id: number): void {
+    const appt = this.appointments.find(a => a.id === id);
+    if (appt && appt.status === 'scheduled') appt.status = 'confirmed';
+  }
+
+  update(id: number): void {
+    console.log('Update appointment:', id);
   }
 
   getStatusClass(status: string): string {
     return {
-      scheduled: 'badge-scheduled',
-      completed: 'badge-completed',
-      cancelled: 'badge-cancelled',
-      confirmed: 'badge-confirmed'
+      scheduled: 'status-scheduled',
+      completed: 'status-completed',
+      cancelled: 'status-cancelled',
+      confirmed: 'status-confirmed'
     }[status] || '';
   }
 
-  // Méthode pour filtrer par statut
+  getStatusDisplay(status: string): string {
+    return status.charAt(0).toUpperCase() + status.slice(1);
+  }
+
+  getStatusCount(status: string): number {
+    return this.appointments.filter(appt => appt.status === status).length;
+  }
+
   filterByStatus(appointments: Appointment[]): Appointment[] {
     if (this.selectedStatus === 'all') {
       return appointments;
@@ -45,22 +78,46 @@ export class AppointmentListComponent implements OnInit {
     return appointments.filter(appt => appt.status === this.selectedStatus);
   }
 
-  // Méthode pour filtrer par date (par exemple, "today" ou "all")
-  filterByDate(appointments: Appointment[]): Appointment[] {
-    if (this.selectedDate === 'all') {
+  filterByDateRange(appointments: Appointment[]): Appointment[] {
+    if (!this.startDate && !this.endDate) {
       return appointments;
     }
-    const today = new Date();
     return appointments.filter(appt => {
       const appointmentDate = new Date(appt.date);
-      return appointmentDate.toDateString() === today.toDateString(); // Compare uniquement la date sans l'heure
+      appointmentDate.setHours(0, 0, 0, 0);
+      let isInRange = true;
+      if (this.startDate) {
+        const start = new Date(this.startDate);
+        start.setHours(0, 0, 0, 0);
+        isInRange = isInRange && appointmentDate >= start;
+      }
+      if (this.endDate) {
+        const end = new Date(this.endDate);
+        end.setHours(23, 59, 59, 999);
+        isInRange = isInRange && appointmentDate <= end;
+      }
+      return isInRange;
     });
   }
 
-  // Combine les filtres de statut et de date
   getFilteredAppointments(): Appointment[] {
-    let filteredAppointments = this.filterByStatus(this.appointments);
-    filteredAppointments = this.filterByDate(filteredAppointments);
-    return filteredAppointments;
+    let filtered = this.filterByStatus(this.appointments);
+    filtered = this.filterByDateRange(filtered);
+    return filtered;
+  }
+
+  clearFilters(): void {
+    this.selectedStatus = 'all';
+    this.startDate = '';
+    this.endDate = '';
+  }
+
+  get hasActiveFilters(): boolean {
+    return this.selectedStatus !== 'all' || !!this.startDate || !!this.endDate;
+  }
+
+  formatDate(dateValue: Date | string): string {
+    const date = new Date(dateValue);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   }
 }

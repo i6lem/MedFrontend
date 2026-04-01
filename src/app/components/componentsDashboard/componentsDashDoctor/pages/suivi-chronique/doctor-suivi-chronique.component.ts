@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './doctor-suivi-chronique.component.html',
   standalone: false,
 })
-export class DoctorSuiviChroniqueComponent {}
+export class DoctorSuiviChroniqueComponent {
+  chronicCases = [
+    { patient: 'John Smith', condition: 'Hypertension', risk: 'Medium' },
+    { patient: 'Sarah Kim', condition: 'Diabetes', risk: 'High' },
+  ];
+}

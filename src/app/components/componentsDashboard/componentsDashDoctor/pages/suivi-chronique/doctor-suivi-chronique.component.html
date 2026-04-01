@@ -1,1 +1,29 @@
-<div class="container-fluid py-4"></div>
+<app-dashboard-shell
+  [title]="'Chronic care'"
+  [subtitle]="'Monitor chronic diseases and proactive alerts.'"
+  [secondaryMetrics]="[
+    { label: 'High-risk patients', value: '14' },
+    { label: 'Alerts triggered', value: '6' },
+    { label: 'Medication adherence', value: '87%' },
+    { label: 'Pending follow-up', value: '9' }
+  ]"
+>
+  <div shell-actions>
+    <button class="btn btn-light">Create care plan</button>
+  </div>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body table-responsive">
+      <table class="table align-middle mb-0">
+        <thead><tr><th>Patient</th><th>Condition</th><th>Risk</th><th></th></tr></thead>
+        <tbody>
+          <tr *ngFor="let c of chronicCases">
+            <td>{{ c.patient }}</td>
+            <td>{{ c.condition }}</td>
+            <td><app-status-badge [status]="c.risk"></app-status-badge></td>
+            <td class="text-end"><button class="btn btn-sm btn-soft-info">Create alert</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-dashboard-shell>

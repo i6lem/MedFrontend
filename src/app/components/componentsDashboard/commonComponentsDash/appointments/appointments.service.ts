@@ -13,7 +13,8 @@ export class AppointmentsService {
       date: new Date('2026-04-10'),
       time: '09:00',
       status: 'scheduled',
-      location: 'Room 204'
+      location: 'Room 204',
+      
     },
     {
       id: 2,

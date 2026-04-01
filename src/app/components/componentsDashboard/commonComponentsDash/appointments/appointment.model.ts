@@ -2,8 +2,8 @@ export interface Appointment {
   id: number;
   doctorName: string;
   specialty: string;
-  date: Date;
+  date: Date | string;
   time: string;
-  status: 'scheduled' | 'completed' | 'cancelled' | 'confirmed';
-  location?: string;
+  status: 'scheduled' | 'confirmed' | 'completed' | 'cancelled';
+  location: string;
 }
