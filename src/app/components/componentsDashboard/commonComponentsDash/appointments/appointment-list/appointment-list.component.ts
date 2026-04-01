@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from '../appointments.service';
 import { Appointment } from '../appointment.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointment-list.component.html',
-  styleUrls: ['./appointment-list.component.scss']
+  styleUrls: ['./appointment-list.component.scss'],
+  standalone: true,
+  imports: [CommonModule], 
 })
 export class AppointmentListComponent implements OnInit {
 
   appointments: Appointment[] = [];
   selectedStatus: string = 'all';
-  startDate: string = '';
-  endDate: string = '';
+  selectedDate: string = 'all'; 
 
   constructor(private service: AppointmentsService) {}
 
@@ -24,26 +26,28 @@ export class AppointmentListComponent implements OnInit {
     this.service.getAll().subscribe(data => this.appointments = data);
   }
 
-  onStatusChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedStatus = select.value;
-  }
-
-  onStartDateChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.startDate = input.value;
-  }
-
-  onEndDateChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.endDate = input.value;
-  }
-
   cancel(id: number): void {
     this.service.cancel(id);
     this.loadAppointments();
   }
-  
+
+openStatusDropdown = false;
+openDateDropdown = false;
+
+toggleStatusDropdown(): void {
+  this.openStatusDropdown = !this.openStatusDropdown;
+  this.openDateDropdown = false;
+}
+
+toggleDateDropdown(): void {
+  this.openDateDropdown = !this.openDateDropdown;
+  this.openStatusDropdown = false;
+}
+
+closeDropdowns(): void {
+  this.openStatusDropdown = false;
+  this.openDateDropdown = false;
+}
 
   confirm(id: number): void {
     const appt = this.appointments.find(a => a.id === id);
@@ -72,48 +76,32 @@ export class AppointmentListComponent implements OnInit {
   }
 
   filterByStatus(appointments: Appointment[]): Appointment[] {
-    if (this.selectedStatus === 'all') {
-      return appointments;
-    }
+    if (this.selectedStatus === 'all') return appointments;
     return appointments.filter(appt => appt.status === this.selectedStatus);
   }
 
-  filterByDateRange(appointments: Appointment[]): Appointment[] {
-    if (!this.startDate && !this.endDate) {
-      return appointments;
-    }
+  filterByDate(appointments: Appointment[]): Appointment[] {
+    if (this.selectedDate === 'all') return appointments;
+    const today = new Date();
     return appointments.filter(appt => {
       const appointmentDate = new Date(appt.date);
-      appointmentDate.setHours(0, 0, 0, 0);
-      let isInRange = true;
-      if (this.startDate) {
-        const start = new Date(this.startDate);
-        start.setHours(0, 0, 0, 0);
-        isInRange = isInRange && appointmentDate >= start;
-      }
-      if (this.endDate) {
-        const end = new Date(this.endDate);
-        end.setHours(23, 59, 59, 999);
-        isInRange = isInRange && appointmentDate <= end;
-      }
-      return isInRange;
+      return appointmentDate.toDateString() === today.toDateString();
     });
   }
 
   getFilteredAppointments(): Appointment[] {
     let filtered = this.filterByStatus(this.appointments);
-    filtered = this.filterByDateRange(filtered);
+    filtered = this.filterByDate(filtered);
     return filtered;
   }
 
   clearFilters(): void {
     this.selectedStatus = 'all';
-    this.startDate = '';
-    this.endDate = '';
+    this.selectedDate = 'all';
   }
 
   get hasActiveFilters(): boolean {
-    return this.selectedStatus !== 'all' || !!this.startDate || !!this.endDate;
+    return this.selectedStatus !== 'all' || this.selectedDate !== 'all';
   }
 
   formatDate(dateValue: Date | string): string {
@@ -121,3 +109,4 @@ export class AppointmentListComponent implements OnInit {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   }
 }
+
