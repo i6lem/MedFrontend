@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from '../appointments.service';
 import { Appointment } from '../appointment.model';
 import { CommonModule } from '@angular/common';
+import { UpdateAppointmentComponent } from '../update-appointment/update-appointment.component'; 
+import { AddAppointmentComponent } from '../add-appointment/add-appointment.component';
 
 @Component({
   selector: 'app-appointment-list',
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.scss'],
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule, 
+    UpdateAppointmentComponent, 
+    AddAppointmentComponent],
 })
 export class AppointmentListComponent implements OnInit {
 
@@ -17,6 +21,9 @@ export class AppointmentListComponent implements OnInit {
   selectedDate: string = 'all'; 
 
   constructor(private service: AppointmentsService) {}
+  selectedAppointmentId: number | null = null;
+  openStatusDropdown = false;
+  openDateDropdown = false;
 
   ngOnInit(): void {
     this.loadAppointments();
@@ -30,9 +37,6 @@ export class AppointmentListComponent implements OnInit {
     this.service.cancel(id);
     this.loadAppointments();
   }
-
-openStatusDropdown = false;
-openDateDropdown = false;
 
 toggleStatusDropdown(): void {
   this.openStatusDropdown = !this.openStatusDropdown;
@@ -55,8 +59,12 @@ closeDropdowns(): void {
   }
 
   update(id: number): void {
-    console.log('Update appointment:', id);
-  }
+  this.selectedAppointmentId = id;
+}
+
+closeUpdateForm(): void {
+  this.selectedAppointmentId = null;
+}
 
   getStatusClass(status: string): string {
     return {

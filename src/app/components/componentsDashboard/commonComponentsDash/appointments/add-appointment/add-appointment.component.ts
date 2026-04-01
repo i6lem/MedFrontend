@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   selector: 'app-add-appointment',
   templateUrl: './add-appointment.component.html',
   styleUrls: ['./add-appointment.component.scss'],
-  standalone: false
+  standalone: true
 })
 export class AddAppointmentComponent implements OnInit {
   appointmentForm!: FormGroup;

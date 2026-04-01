@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Input, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-update-appointment',
   templateUrl: './update-appointment.component.html',
  styleUrls: ['./update-appointment.component.scss'],
- standalone: false
+ standalone: true
 })
 export class UpdateAppointmentComponent implements OnInit {
 
@@ -46,6 +48,14 @@ export class UpdateAppointmentComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.form.value);
+    this.updated.emit();
+  }
+  @Input() appointmentId!: number;
+  @Output() close = new EventEmitter<void>();
+  @Output() updated = new EventEmitter<void>();
+
+  onCancel(): void {
+    this.close.emit();
   }
 
 }
