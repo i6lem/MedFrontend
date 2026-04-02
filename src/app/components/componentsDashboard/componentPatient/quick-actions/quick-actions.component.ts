@@ -30,7 +30,7 @@ export class QuickActionsComponent {
   onActionClick(action: QuickAction): void {
     this.actionClicked.emit(action.id);
   }
-   openAddForm(): void {
+  openAddForm(): void {
     this.showAddModal = true;
   }
 
@@ -40,5 +40,4 @@ export class QuickActionsComponent {
   loadAppointments(): void {
     this.service.getAll().subscribe(data => this.appointments = data);
   }
-
 }

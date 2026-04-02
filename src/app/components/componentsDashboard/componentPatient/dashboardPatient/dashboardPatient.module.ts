@@ -65,7 +65,7 @@ const routes: Routes = [
     AppointmentsModule, 
     MedicationsCardComponent,
     LabResultsCardComponent,
-    QuickActionsComponent,
+    QuickActionsComponent
   ],
   exports: [RouterModule],
   providers: [LanguageService],
