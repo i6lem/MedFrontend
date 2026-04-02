@@ -43,7 +43,6 @@ const routes: Routes = [
   declarations: [
     DashboardPatientComponent,
     EngagementPanelComponent,
-    QuickActionsComponent,
     HealthOverviewComponent
   ],
   imports: [
@@ -65,7 +64,8 @@ const routes: Routes = [
     TranslateModule,
     AppointmentsModule, 
     MedicationsCardComponent,
-    LabResultsCardComponent
+    LabResultsCardComponent,
+    QuickActionsComponent,
   ],
   exports: [RouterModule],
   providers: [LanguageService],

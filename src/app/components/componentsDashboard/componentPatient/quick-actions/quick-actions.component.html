@@ -6,7 +6,7 @@
 
   <div class="qa-card__grid">
 
-    <button class="qa-item">
+    <button class="qa-item" (click)="openAddForm()">
       <div class="qa-item__icon qa-item__icon--blue">
         <i class="ri-calendar-check-line"></i>
       </div>
@@ -34,5 +34,15 @@
       <span>Message doctor</span>
     </button>
 
+
   </div>
+        <!-- Add Appointment Modal -->
+      <div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddForm()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+          <app-add-appointment
+            (close)="closeAddForm()"
+            (added)="closeAddForm(); loadAppointments()">
+          </app-add-appointment>
+        </div>
+      </div>
 </div>
