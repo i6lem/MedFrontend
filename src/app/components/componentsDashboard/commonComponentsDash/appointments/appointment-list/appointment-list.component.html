@@ -16,7 +16,7 @@
         </svg>
         <input type="text" placeholder="Search appointments..." class="search-input" />
       </div>
-      <button class="btn-primary">
+      <button class="btn-primary" (click)="openAddForm()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -161,13 +161,6 @@
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                   </svg>
                 </button>
-                <!-- Update Appointment Panel -->
-                <app-update-appointment
-                  *ngIf="selectedAppointmentId !== null"
-                  [appointmentId]="selectedAppointmentId"
-                  (close)="closeUpdateForm()"
-                  (updated)="closeUpdateForm(); loadAppointments()">
-                </app-update-appointment>
 
                 <!-- Cancel button: only if not already cancelled -->
                 <button
@@ -201,6 +194,25 @@
 
         </tbody>
       </table>
+      <!-- Add Appointment Modal -->
+      <div class="modal-overlay" *ngIf="showAddModal" (click)="closeAddForm()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+          <app-add-appointment
+            (close)="closeAddForm()"
+            (added)="closeAddForm(); loadAppointments()">
+          </app-add-appointment>
+        </div>
+      </div>
+      <!-- Modal Overlay -->
+      <div class="modal-overlay" *ngIf="selectedAppointmentId !== null" (click)="closeUpdateForm()">
+        <div class="modal-container" (click)="$event.stopPropagation()">
+          <app-update-appointment
+            [appointmentId]="selectedAppointmentId!"
+            (close)="closeUpdateForm()"
+            (updated)="closeUpdateForm(); loadAppointments()">
+          </app-update-appointment>
+        </div>
+      </div>
     </div>
 
     <!-- Table Footer -->

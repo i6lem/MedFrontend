@@ -34,8 +34,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     NextAppointmentComponent,
-    AddAppointmentComponent,
-    UpdateAppointmentComponent,
     FilterStatusPipe, 
     FilterDatePipe  
   ],
@@ -44,13 +42,16 @@ const routes: Routes = [
     RouterModule.forChild(routes)  ,
     ReactiveFormsModule,
     AppointmentListComponent, 
-
+    UpdateAppointmentComponent,
+    AddAppointmentComponent
   ],
   providers: [AppointmentsService],
   exports: [
     RouterModule,
     AppointmentListComponent,
-    NextAppointmentComponent
+    NextAppointmentComponent,
+    UpdateAppointmentComponent,
+    AddAppointmentComponent
   ]
 })
 export class AppointmentsModule {}

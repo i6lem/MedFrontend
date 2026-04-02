@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Input, Output, EventEmitter } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-appointment',
   templateUrl: './update-appointment.component.html',
- styleUrls: ['./update-appointment.component.scss'],
- standalone: true
+  styleUrls: ['./update-appointment.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class UpdateAppointmentComponent implements OnInit {
+
+  @Input() appointmentId!: number;
+  @Output() close = new EventEmitter<void>();
+  @Output() updated = new EventEmitter<void>();
 
   form!: FormGroup;
   minDate!: string;
@@ -36,9 +40,7 @@ export class UpdateAppointmentComponent implements OnInit {
 
   filterSpecialty(type: string): void {
     this.appointmentType = type;
-    this.form.patchValue({
-      appointmentType: type
-    });
+    this.form.patchValue({ appointmentType: type });
   }
 
   resetForm(): void {
@@ -50,13 +52,8 @@ export class UpdateAppointmentComponent implements OnInit {
     console.log(this.form.value);
     this.updated.emit();
   }
-  @Input() appointmentId!: number;
-  @Output() close = new EventEmitter<void>();
-  @Output() updated = new EventEmitter<void>();
 
   onCancel(): void {
     this.close.emit();
   }
-
 }
-

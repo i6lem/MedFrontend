@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from '../appointments.service';
 import { Appointment } from '../appointment.model';
 import { CommonModule } from '@angular/common';
-import { UpdateAppointmentComponent } from '../update-appointment/update-appointment.component'; 
+import { UpdateAppointmentComponent } from '../update-appointment/update-appointment.component';
 import { AddAppointmentComponent } from '../add-appointment/add-appointment.component';
 
 @Component({
@@ -10,20 +10,18 @@ import { AddAppointmentComponent } from '../add-appointment/add-appointment.comp
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, 
-    UpdateAppointmentComponent, 
-    AddAppointmentComponent],
+  imports: [CommonModule, UpdateAppointmentComponent, AddAppointmentComponent],
 })
 export class AppointmentListComponent implements OnInit {
 
   appointments: Appointment[] = [];
   selectedStatus: string = 'all';
-  selectedDate: string = 'all'; 
-
-  constructor(private service: AppointmentsService) {}
+  selectedDate: string = 'all';
   selectedAppointmentId: number | null = null;
   openStatusDropdown = false;
   openDateDropdown = false;
+  showAddModal: boolean = false;
+  constructor(private service: AppointmentsService) {}
 
   ngOnInit(): void {
     this.loadAppointments();
@@ -38,20 +36,20 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointments();
   }
 
-toggleStatusDropdown(): void {
-  this.openStatusDropdown = !this.openStatusDropdown;
-  this.openDateDropdown = false;
-}
+  toggleStatusDropdown(): void {
+    this.openStatusDropdown = !this.openStatusDropdown;
+    this.openDateDropdown = false;
+  }
 
-toggleDateDropdown(): void {
-  this.openDateDropdown = !this.openDateDropdown;
-  this.openStatusDropdown = false;
-}
+  toggleDateDropdown(): void {
+    this.openDateDropdown = !this.openDateDropdown;
+    this.openStatusDropdown = false;
+  }
 
-closeDropdowns(): void {
-  this.openStatusDropdown = false;
-  this.openDateDropdown = false;
-}
+  closeDropdowns(): void {
+    this.openStatusDropdown = false;
+    this.openDateDropdown = false;
+  }
 
   confirm(id: number): void {
     const appt = this.appointments.find(a => a.id === id);
@@ -59,20 +57,20 @@ closeDropdowns(): void {
   }
 
   update(id: number): void {
-  this.selectedAppointmentId = id;
-}
+    this.selectedAppointmentId = id;
+  }
 
-closeUpdateForm(): void {
-  this.selectedAppointmentId = null;
-}
+  closeUpdateForm(): void {
+    this.selectedAppointmentId = null;
+  }
 
   getStatusClass(status: string): string {
-    return {
+    return ({
       scheduled: 'status-scheduled',
       completed: 'status-completed',
       cancelled: 'status-cancelled',
       confirmed: 'status-confirmed'
-    }[status] || '';
+    } as Record<string, string>)[status] || '';
   }
 
   getStatusDisplay(status: string): string {
@@ -116,5 +114,11 @@ closeUpdateForm(): void {
     const date = new Date(dateValue);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   }
-}
+  openAddForm(): void {
+    this.showAddModal = true;
+  }
 
+  closeAddForm(): void {
+    this.showAddModal = false;
+  }
+}

@@ -8,6 +8,7 @@ import { QuickAction } from '../quick-actions/quick-actions.model';
   standalone: false
 })
 export class DashboardPatientComponent {
+   userName: string = 'Kmar';
  
   handleJoinNow(): void {
     console.log('Join Now clicked');
